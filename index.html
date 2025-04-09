@@ -3,145 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPI対策の決定版 - あなたの内定率を上げる</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>宇宙の星アニメーション</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+        
+        .space {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: moveStar linear infinite;
+        }
+        
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1) 50%, rgba(255,255,255,0));
+            border-radius: 50%;
+            animation: shootingStar linear infinite;
+        }
+        
+        @keyframes moveStar {
+            0% {
+                transform: translateZ(0) translateX(0) translateY(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateZ(-1000px) translateX(var(--tx)) translateY(var(--ty));
+                opacity: 0;
+            }
+        }
+        
+        @keyframes shootingStar {
+            0% {
+                transform: translateX(-100px) translateY(var(--sy)) rotate(var(--rotate));
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(var(--ey)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>SPI対策の決定版！あなたの内定率を上げる</h1>
-            <p>効率的な学習法と豊富な問題集で、SPIを攻略</p>
-            <a href="#" class="btn">無料で始める</a>
-        </div>
-    </header>
+    <div class="space" id="space"></div>
 
-    <section id="spi-overview">
-        <div class="container">
-            <h2>SPIとは</h2>
-            <p>SPIは、多くの企業が採用選考で使用する適性検査です。言語能力、非言語能力（数学的思考力）、性格適性を総合的に評価します。就職活動の成否を左右する重要な試験であり、効果的な対策が不可欠です。</p>
-            <p>当サイトでは、SPIの全分野をカバーする充実した学習コンテンツを提供し、あなたの合格をサポートします。</p>
-        </div>
-    </section>
-
-    <section id="features">
-        <div class="container">
-            <h2>主な機能</h2>
-            <ul>
-                <li>豊富な練習問題：実際のSPI試験を徹底分析し、本番さながらの問題を多数用意</li>
-                <li>分野別学習ガイド：苦手分野を効率的に克服できる、詳細な解説付き</li>
-                <li>模擬テスト機能：本番の試験時間や難易度を再現し、実践的な対策が可能</li>
-                <li>成績分析ツール：あなたの強みと弱点を可視化し、効率的な学習をサポート</li>
-            </ul>
-        </div>
-    </section>
-
-    <section id="feature-details">
-        <div class="container">
-            <h2>各機能の詳細</h2>
-            <div class="feature">
-                <h3>豊富な練習問題</h3>
-                <p>言語分野、非言語分野合わせて5000問以上の問題を収録。基礎から応用まで幅広くカバーし、着実にスキルアップできます。</p>
-            </div>
-            <div class="feature">
-                <h3>分野別学習ガイド</h3>
-                <p>各分野の特徴や頻出パターンを詳しく解説。効率的な学習方法や解き方のコツを伝授し、苦手分野の克服をサポートします。</p>
-            </div>
-            <div class="feature">
-                <h3>模擬テスト機能</h3>
-                <p>実際のSPI試験を忠実に再現した模擬テストを複数用意。本番さながらの環境で試験に慣れることができます。</p>
-            </div>
-            <div class="feature">
-                <h3>成績分析ツール</h3>
-                <p>あなたの回答履歴を詳細に分析し、強みと弱点を明確に示します。苦手分野の特定や学習計画の立案に役立ちます。</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="testimonials">
-        <div class="container">
-            <h2>利用者の声</h2>
-            <blockquote>
-                「この教材のおかげで、SPIの点数が大幅に上がりました。特に非言語分野が苦手でしたが、分かりやすい解説のおかげで克服できました。内定も獲得できて本当に感謝しています！」- 田中さん（22歳、大手メーカー内定）
-            </blockquote>
-            <blockquote>
-                「模擬テスト機能が本当に役立ちました。本番の雰囲気を体験できたので、試験当日も落ち着いて臨むことができました。」- 佐藤さん（23歳、金融業界内定）
-            </blockquote>
-        </div>
-    </section>
-
-    <section id="pricing">
-        <div class="container">
-            <h2>料金プラン</h2>
-            <div class="plan">
-                <h3>無料プラン</h3>
-                <ul>
-                    <li>基本的な練習問題（100問）</li>
-                    <li>簡易的な成績管理</li>
-                </ul>
-                <p class="price">¥0/月</p>
-            </div>
-            <div class="plan">
-                <h3>スタンダードプラン</h3>
-                <ul>
-                    <li>全ての練習問題（5000問以上）</li>
-                    <li>分野別学習ガイド</li>
-                    <li>模擬テスト（3回分）</li>
-                    <li>基本的な成績分析</li>
-                </ul>
-                <p class="price">¥980/月</p>
-            </div>
-            <div class="plan">
-                <h3>プレミアムプラン</h3>
-                <ul>
-                    <li>スタンダードプランの全機能</li>
-                    <li>無制限の模擬テスト</li>
-                    <li>詳細な成績分析と学習アドバイス</li>
-                    <li>専門家によるQ&Aサポート</li>
-                </ul>
-                <p class="price">¥1,980/月</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq">
-        <div class="container">
-            <h2>よくある質問</h2>
-            <div class="faq-item">
-                <h3 class="faq-question">SPIの学習にはどれくらいの期間が必要ですか？</h3>
-                <div class="faq-answer">
-                    <p>個人差はありますが、一般的に2〜3ヶ月の集中的な学習が推奨されています。ただし、早めに準備を始めることで、余裕を持って臨むことができます。当サイトの学習計画機能を活用すれば、効率的な学習スケジュールを立てることができます。</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">どの分野から学習を始めるべきですか？</h3>
-                <div class="faq-answer">
-                    <p>まずは当サイトの診断テストを受けて、自分の強みと弱点を把握することをおすすめします。その結果に基づいて、苦手分野から集中的に学習を始めるのが効果的です。特に、非言語分野（数学）に苦手意識がある方は、早めにこの分野の対策を始めることをおすすめします。</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">模擬テストは何回受けるべきですか？</h3>
-                <div class="faq-answer">
-                    <p>最低でも3回は受けることをおすすめします。1回目で現状を把握し、2回目で成長を確認、3回目で最終調整を行います。プレミアムプランでは無制限に模擬テストを受けられるので、より多くの練習が可能です。本番と同じ条件で繰り返し練習することで、実戦力が大きく向上します。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="cta">
-        <div class="container">
-            <h2>今すぐSPI対策を始めよう</h2>
-            <p>あなたの夢の就職を実現するための第一歩。今すぐ登録して、効果的なSPI対策を始めましょう！</p>
-            <a href="#" class="btn">無料で始める</a>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 SPI対策サイト. All rights reserved.</p>
-            <a href="#">利用規約</a> | <a href="#">プライバシーポリシー</a>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const space = document.getElementById('space');
+            const starCount = 200;
+            const shootingStarCount = 5;
+            
+            // 通常の星を作成
+            for (let i = 0; i < starCount; i++) {
+                createStar();
+            }
+            
+            // 流れ星を作成
+            for (let i = 0; i < shootingStarCount; i++) {
+                createShootingStar();
+            }
+            
+            // 星の作成関数
+            function createStar() {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // ランダムなサイズ (0.5px - 2px)
+                const size = Math.random() * 1.5 + 0.5;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // ランダムな位置
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                star.style.left = `${x}px`;
+                star.style.top = `${y}px`;
+                
+                // ランダムな移動方向
+                const tx = (Math.random() - 0.5) * window.innerWidth * 2;
+                const ty = (Math.random() - 0.5) * window.innerHeight * 2;
+                star.style.setProperty('--tx', `${tx}px`);
+                star.style.setProperty('--ty', `${ty}px`);
+                
+                // ランダムなアニメーション時間 (20s - 60s)
+                const duration = Math.random() * 40 + 20;
+                star.style.animationDuration = `${duration}s`;
+                
+                // ランダムな開始時間
+                const delay = Math.random() * duration;
+                star.style.animationDelay = `-${delay}s`;
+                
+                // 明るさをランダムに変化させる
+                const brightness = Math.random() * 0.5 + 0.5;
+                star.style.opacity = brightness;
+                
+                space.appendChild(star);
+                
+                // アニメーション終了時に新しい星を作成
+                star.addEventListener('animationiteration', function() {
+                    // 新しい位置と方向を設定
+                    const newX = Math.random() * window.innerWidth;
+                    const newY = Math.random() * window.innerHeight;
+                    star.style.left = `${newX}px`;
+                    star.style.top = `${newY}px`;
+                    
+                    const newTx = (Math.random() - 0.5) * window.innerWidth * 2;
+                    const newTy = (Math.random() - 0.5) * window.innerHeight * 2;
+                    star.style.setProperty('--tx', `${newTx}px`);
+                    star.style.setProperty('--ty', `${newTy}px`);
+                });
+            }
+            
+            // 流れ星の作成関数
+            function createShootingStar() {
+                const star = document.createElement('div');
+                star.classList.add('shooting-star');
+                
+                // サイズを設定
+                const width = Math.random() * 70 + 30;
+                star.style.width = `${width}px`;
+                
+                // ランダムな角度
+                const rotate = Math.random() * 20 - 10;
+                star.style.setProperty('--rotate', `${rotate}deg`);
+                
+                // ランダムな開始Y位置と終了Y位置
+                const startY = Math.random() * window.innerHeight * 0.7;
+                const endY = startY + (Math.random() - 0.5) * 200;
+                star.style.setProperty('--sy', `${startY}px`);
+                star.style.setProperty('--ey', `${endY}px`);
+                
+                // アニメーション時間 (2s - 6s)
+                const duration = Math.random() * 4 + 2;
+                star.style.animationDuration = `${duration}s`;
+                
+                // ランダムな開始時間
+                const delay = Math.random() * 15;
+                star.style.animationDelay = `${delay}s`;
+                
+                space.appendChild(star);
+                
+                // アニメーション終了時に新しい流れ星を作成
+                star.addEventListener('animationiteration', function() {
+                    // 新しい角度
+                    const newRotate = Math.random() * 20 - 10;
+                    star.style.setProperty('--rotate', `${newRotate}deg`);
+                    
+                    // 新しい開始Y位置と終了Y位置
+                    const newStartY = Math.random() * window.innerHeight * 0.7;
+                    const newEndY = newStartY + (Math.random() - 0.5) * 200;
+                    star.style.setProperty('--sy', `${newStartY}px`);
+                    star.style.setProperty('--ey', `${newEndY}px`);
+                    
+                    // 新しい遅延時間
+                    const newDelay = Math.random() * 10;
+                    star.style.animationDelay = `${newDelay}s`;
+                });
+            }
+            
+            // ウィンドウサイズ変更時に星の位置を再調整
+            window.addEventListener('resize', function() {
+                const stars = document.querySelectorAll('.star');
+                stars.forEach(star => {
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight;
+                    star.style.left = `${x}px`;
+                    star.style.top = `${y}px`;
+                });
+            });
+        });
+    </script>
 </body>
 </html>
