@@ -20,6 +20,16 @@
             width: 100%;
             height: 100%;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 100px;
+        }
+        
+        .left-container, .right-container {
+            position: relative;
+            width: 45%;
+            height: 100%;
+            display: flex;
             justify-content: center;
             align-items: center;
         }
@@ -34,16 +44,24 @@
         }
         
         .company-name {
+            padding: 0% 10%;
             position: relative;
             z-index: 2;
             color: white;
-            font-size: 3.5rem;
             font-weight: 300;
             text-align: center;
             opacity: 0;
             animation: fadeIn 2s ease-in-out 1s forwards;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
             letter-spacing: 2px;
+        }
+        
+        .left-container .company-name {
+            font-size: 64px;
+        }
+        
+        .right-container .company-name {
+            font-size: 26px;
         }
         
         @keyframes fadeIn {
@@ -57,129 +75,158 @@
             }
         }
         
+        .light-source {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255,255,255,0.8);
+            z-index: 3;
+        }
+
+        .light-source::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0.2;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.4;
+            }
+        }
+        
         .light-path {
             position: absolute;
-            height: 2px;
-            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
-            transform-origin: center bottom;
+            width: 3px;
+            background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+            transform-origin: 0 0;
             opacity: 0;
-            bottom: 45%;
-            left: 50%;
         }
         
         @keyframes branchOut {
             0% {
                 opacity: 0;
-                width: 0;
-                transform: rotate(0deg) translateY(0);
+                height: 0;
             }
             10% {
-                opacity: 0.8;
-                width: 5px;
+                opacity: 1;
+                height: 5px;
             }
             100% {
                 opacity: 0;
-                width: 100vh;
-                transform: rotate(var(--angle)) translateY(-100vh);
+                height: 200vh;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="light-paths" id="lightContainer"></div>
-        <div class="company-name">WAVEXROSS株式会社</div>
+        <div class="light-source"></div>
+        <div class="light-paths" id="centralLightContainer"></div>
+        <div class="left-container">
+            <div class="company-name">CREATING WAVE
+                XROSSING PEOPLE,
+                WISDOM
+                AND TECHNOLOGY</div>
+        </div>
+        <div class="right-container">
+            <div class="company-name">
+                新たな価値提供で豊かな社会へ導く
+                人・知恵・技術を組み合わせ</div>
+        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const lightContainer = document.getElementById('lightContainer');
-            const containerWidth = lightContainer.offsetWidth;
-            const containerHeight = lightContainer.offsetHeight;
+            const centralLightContainer = document.getElementById('centralLightContainer');
+            const lightSource = document.querySelector('.light-source');
             
             // アニメーションを開始
-            setInterval(createBranch, 200);  // 200msごとに新しい分岐を作成
+            setInterval(() => {
+                // 一度に複数の光線を生成
+                const rayCount = Math.floor(Math.random() * 2) + 1; // 2～4本の光線を生成
+                for (let i = 0; i < rayCount; i++) {
+                    createBranch(centralLightContainer, lightSource);
+                }
+            }, 1000); // 光線の発生頻度
             
             // ページ読み込み時に初期の光線をいくつか作成
             for (let i = 0; i < 10; i++) {
-                setTimeout(() => createBranch(), i * 100);
+                setTimeout(() => {
+                    const initialRayCount = Math.floor(Math.random() * 3) + 2;
+                    for (let j = 0; j < initialRayCount; j++) {
+                        createBranch(centralLightContainer, lightSource);
+                    }
+                }, i * 1000);
             }
             
-            function createBranch() {
+            function createBranch(container, source) {
                 const light = document.createElement('div');
                 light.className = 'light-path';
                 
-                // アニメーション特性を設定
-                const duration = Math.random() * 3 + 2; // 2-5秒
-                const angle = Math.random() * 160 - 80; // -80度から+80度の範囲
+                // 光源の位置を取得
+                const sourceRect = source.getBoundingClientRect();
+                const sourceX = sourceRect.left + sourceRect.width / 2;
+                const sourceY = sourceRect.top + sourceRect.height / 2;
                 
-                // CSSカスタムプロパティを設定してアニメーションの動きをコントロール
-                light.style.setProperty('--angle', `${angle}deg`);
+                // 光線の開始点を光源の中心に設定
+                light.style.position = 'absolute';
+                light.style.left = `${sourceX}px`;
+                light.style.top = `${sourceY}px`;
+                
+                // 様々な角度で光線を生成
+                const angle = Math.random() * 360 * Math.PI / 180;
+                
+                // 角度に応じた変換を設定
+                light.style.transform = `rotate(${angle}rad)`;
+                
+                // アニメーション特性を設定
+                const duration = Math.random() * 5 + 5; // 1-2.5秒
                 
                 // アニメーションを設定
                 light.style.animation = `branchOut ${duration}s cubic-bezier(0.25, 0.1, 0.25, 1) forwards`;
                 
                 // 光の色をランダムに設定（青っぽい色調を維持）
                 const hue = 200 + Math.random() * 40;
-                const saturation = 70 + Math.random() * 30;
-                const lightness = 60 + Math.random() * 40;
-                const brightness = Math.random() * 0.5 + 0.3;
+                const saturation = 80 + Math.random() * 20; // 彩度を上げる
+                const lightness = 70 + Math.random() * 30; // 明度を上げる
+                const brightness = Math.random() * 0.3 + 0.7; // 明るさを上げる (0.7-1.0)
                 
-                // 光の太さをランダムに設定（細いものから太いものまで）
-                const thickness = Math.random() * 2 + 1;
-                light.style.height = `${thickness}px`;
+                // 光の太さをランダムに設定（太めに設定）
+                const thickness = Math.random() * 0.5 + 3; // 3-7pxに太さを増加
+                light.style.width = `${thickness}px`;
                 
-                light.style.background = `linear-gradient(90deg, 
+                light.style.background = `linear-gradient(0deg, 
                     hsla(${hue}, ${saturation}%, ${lightness}%, 0) 0%, 
                     hsla(${hue}, ${saturation}%, ${lightness}%, ${brightness}) 50%, 
                     hsla(${hue}, ${saturation}%, ${lightness}%, 0) 100%)`;
                 
-                lightContainer.appendChild(light);
+                container.appendChild(light);
                 
                 // アニメーション完了時に要素を削除
                 light.addEventListener('animationend', function() {
                     light.remove();
-                    
-                    // 確率で分岐を作成（道なき道を開拓するイメージ）
-                    if (Math.random() > 0.7) {
-                        const numBranches = Math.floor(Math.random() * 3) + 1;
-                        for (let i = 0; i < numBranches; i++) {
-                            setTimeout(() => {
-                                const branchLight = document.createElement('div');
-                                branchLight.className = 'light-path';
-                                
-                                // 元の光線の終点から分岐するようにポジションを調整
-                                const branchAngle = angle + (Math.random() * 60 - 30);
-                                branchLight.style.setProperty('--angle', `${branchAngle}deg`);
-                                
-                                // 分岐の位置を計算（元の光線の途中からランダムに分岐）
-                                const offsetX = Math.cos(angle * Math.PI / 180) * containerHeight * Math.random() * 0.5;
-                                const offsetY = Math.sin(angle * Math.PI / 180) * containerHeight * Math.random() * 0.5;
-                                branchLight.style.transform = `translate(${offsetX}px, ${-offsetY}px)`;
-                                
-                                // アニメーション特性
-                                const branchDuration = duration * 0.7;
-                                branchLight.style.animation = `branchOut ${branchDuration}s cubic-bezier(0.25, 0.1, 0.25, 1) forwards`;
-                                
-                                // 色は少し異なる色調に
-                                const branchHue = hue + (Math.random() * 20 - 10);
-                                branchLight.style.background = `linear-gradient(90deg, 
-                                    hsla(${branchHue}, ${saturation}%, ${lightness}%, 0) 0%, 
-                                    hsla(${branchHue}, ${saturation}%, ${lightness}%, ${brightness}) 50%, 
-                                    hsla(${branchHue}, ${saturation}%, ${lightness}%, 0) 100%)`;
-                                
-                                // 分岐は少し細め
-                                branchLight.style.height = `${thickness * 0.8}px`;
-                                
-                                lightContainer.appendChild(branchLight);
-                                
-                                // 分岐のアニメーション完了時に要素を削除
-                                branchLight.addEventListener('animationend', function() {
-                                    branchLight.remove();
-                                });
-                            }, Math.random() * 300);
-                        }
-                    }
                 });
             }
         });
