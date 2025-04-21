@@ -3,233 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WAVEXROSS株式会社</title>
+    <title>雨降って地固まる→雨降って地固める</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Zen+Kaku+Gothic+New:wght@700&display=swap" rel="stylesheet">
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #000921;
-        }
-        
-        .container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 100px;
-        }
-        
-        .left-container, .right-container {
-            position: relative;
-            width: 45%;
-            height: 100%;
+        body {
+            font-family: "Noto Sans JP", sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: transparent;
         }
-        
-        .light-paths {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-        
-        .company-name {
-            padding: 0% 10%;
-            position: relative;
-            z-index: 2;
-            color: white;
-            font-weight: 300;
-            text-align: center;
-            opacity: 0;
-            animation: fadeIn 2s ease-in-out 1s forwards;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            letter-spacing: 2px;
-        }
-        
-        .left-container .company-name {
-            font-size: 64px;
-        }
-        
-        .right-container .company-name {
-            font-size: 26px;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .light-source {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(255,255,255,0.8);
-            z-index: 3;
-        }
-
-        .light-source::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 30px;
-            height: 30px;
-            background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 70%);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.4;
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1.5);
-                opacity: 0.2;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.4;
-            }
-        }
-        
-        .light-path {
-            position: absolute;
-            width: 3px;
-            background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
-            transform-origin: 0 0;
-            opacity: 0;
-        }
-        
-        @keyframes branchOut {
-            0% {
-                opacity: 0;
-                height: 0;
-            }
-            10% {
-                opacity: 1;
-                height: 5px;
-            }
-            100% {
-                opacity: 0;
-                height: 200vh;
-            }
-        }
-    </style>
+    .container {
+        text-align: center;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .text-container {
+        font-size: 2rem;
+        height: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .emphasis {
+        color: #0b4071;
+        font-size: 2.5rem;
+        font-weight: 700;
+        font-family: "Zen Kaku Gothic New", sans-serif;
+        display: inline-block;
+        transform: scale(1.5);
+        transform-origin: center bottom;
+        vertical-align: bottom;
+        margin-right: 5px;
+        position: relative;
+        margin-left: 15px;
+        bottom: -5px;
+        letter-spacing: 0.05em;
+        text-shadow: 0 2px 3px rgba(11, 64, 113, 0.2);
+    }
+    
+    
+    .cursor {
+        display: inline-block;
+        width: 3px;
+        height: 2.2rem;
+        background-color: #333;
+        margin-left: 2px;
+        animation: blink 0.7s infinite;
+        vertical-align: middle;
+    }
+    
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+</style>
 </head>
 <body>
     <div class="container">
-        <div class="light-source"></div>
-        <div class="light-paths" id="centralLightContainer"></div>
-        <div class="left-container">
-            <div class="company-name">CREATING WAVE
-                XROSSING PEOPLE,
-                WISDOM
-                AND TECHNOLOGY</div>
-        </div>
-        <div class="right-container">
-            <div class="company-name">
-                新たな価値提供で豊かな社会へ導く
-                人・知恵・技術を組み合わせ</div>
-        </div>
+        <div class="text-container" id="typing-text"></div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const centralLightContainer = document.getElementById('centralLightContainer');
-            const lightSource = document.querySelector('.light-source');
-            
-            // アニメーションを開始
-            setInterval(() => {
-                // 一度に複数の光線を生成
-                const rayCount = Math.floor(Math.random() * 2) + 1; // 2～4本の光線を生成
-                for (let i = 0; i < rayCount; i++) {
-                    createBranch(centralLightContainer, lightSource);
-                }
-            }, 1000); // 光線の発生頻度
-            
-            // ページ読み込み時に初期の光線をいくつか作成
-            for (let i = 0; i < 10; i++) {
-                setTimeout(() => {
-                    const initialRayCount = Math.floor(Math.random() * 3) + 2;
-                    for (let j = 0; j < initialRayCount; j++) {
-                        createBranch(centralLightContainer, lightSource);
-                    }
-                }, i * 1000);
-            }
-            
-            function createBranch(container, source) {
-                const light = document.createElement('div');
-                light.className = 'light-path';
-                
-                // 光源の位置を取得
-                const sourceRect = source.getBoundingClientRect();
-                const sourceX = sourceRect.left + sourceRect.width / 2;
-                const sourceY = sourceRect.top + sourceRect.height / 2;
-                
-                // 光線の開始点を光源の中心に設定
-                light.style.position = 'absolute';
-                light.style.left = `${sourceX}px`;
-                light.style.top = `${sourceY}px`;
-                
-                // 様々な角度で光線を生成
-                const angle = Math.random() * 360 * Math.PI / 180;
-                
-                // 角度に応じた変換を設定
-                light.style.transform = `rotate(${angle}rad)`;
-                
-                // アニメーション特性を設定
-                const duration = Math.random() * 5 + 5; // 1-2.5秒
-                
-                // アニメーションを設定
-                light.style.animation = `branchOut ${duration}s cubic-bezier(0.25, 0.1, 0.25, 1) forwards`;
-                
-                // 光の色をランダムに設定（青っぽい色調を維持）
-                const hue = 200 + Math.random() * 40;
-                const saturation = 80 + Math.random() * 20; // 彩度を上げる
-                const lightness = 70 + Math.random() * 30; // 明度を上げる
-                const brightness = Math.random() * 0.3 + 0.7; // 明るさを上げる (0.7-1.0)
-                
-                // 光の太さをランダムに設定（太めに設定）
-                const thickness = Math.random() * 0.5 + 3; // 3-7pxに太さを増加
-                light.style.width = `${thickness}px`;
-                
-                light.style.background = `linear-gradient(0deg, 
-                    hsla(${hue}, ${saturation}%, ${lightness}%, 0) 0%, 
-                    hsla(${hue}, ${saturation}%, ${lightness}%, ${brightness}) 50%, 
-                    hsla(${hue}, ${saturation}%, ${lightness}%, 0) 100%)`;
-                
-                container.appendChild(light);
-                
-                // アニメーション完了時に要素を削除
-                light.addEventListener('animationend', function() {
-                    light.remove();
-                });
-            }
-        });
-    </script>
+<script>
+    async function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    async function typeText(text, typingSpeed = 150) {
+        const textElement = document.getElementById("typing-text");
+        textElement.innerHTML = "";
+        textElement.style.display = "flex";
+        
+        const cursor = document.createElement("span");
+        cursor.className = "cursor";
+        
+        for (let i = 0; i < text.length; i++) {
+            const charSpan = document.createElement("span");
+            charSpan.textContent = text[i];
+            textElement.appendChild(charSpan);
+            await sleep(typingSpeed);
+        }
+        
+        textElement.appendChild(cursor);
+        return textElement;
+    }
+    
+    async function deleteText(textElement, numChars, deletingSpeed = 100) {
+        const spans = textElement.querySelectorAll("span:not(.cursor)");
+        const startIdx = spans.length - numChars;
+        
+        for (let i = spans.length - 1; i >= startIdx; i--) {
+            spans[i].remove();
+            await sleep(deletingSpeed);
+        }
+    }
+    
+    async function runAnimationSequence() {
+        // 最初のテキスト「雨降って地固まる」を表示
+        const textElement = await typeText("雨降って地固まる");
+        
+        // 少し待機
+        await sleep(1000);
+        
+        // 「まる」を削除
+        await deleteText(textElement, 2);
+        await sleep(500);
+        
+        // 「める」を追加（強調表示）
+        const merSpan = document.createElement("span");
+        merSpan.className = "emphasis";
+        merSpan.textContent = "め";
+        textElement.appendChild(merSpan);
+        await sleep(800);
+        
+        const ruSpan = document.createElement("span");
+        ruSpan.className = "emphasis";
+        ruSpan.textContent = "る";
+        textElement.appendChild(ruSpan);
+        
+        // アニメーション完了後、カーソルを非表示にする
+        const cursor = textElement.querySelector(".cursor");
+        if (cursor) {
+            cursor.style.display = "none";
+        }
+    }
+    
+    // アニメーション開始
+    window.onload = runAnimationSequence;
+</script>
 </body>
 </html>
